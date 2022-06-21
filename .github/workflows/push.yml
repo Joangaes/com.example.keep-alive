@@ -1,17 +1,18 @@
-on: push
-name: deploy
+on:
+  push:
+    branches:
+      - push_iot
+name: deploy greengrass component
 jobs:
   deploy:
-    name: deploy to cluster
+    name: deploy to IoT greengrass
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: build and push to docker
-      uses: docker/build-push-action@v1
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: ${{ github.repository }}
-        tag_with_ref: true
-        tag_with_sha: true
-        tags: ${{ github.sha }}
+        fetch-depth: 1
+    - name: Install GDK
+      run: sudo python3 -m pip install -U git+https://github.com/aws-greengrass/aws-greengrass-gdk-cli.git@v1.1.0
+    - name: Test GDK
+      run: sudo gdk --help
+
