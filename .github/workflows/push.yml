@@ -8,6 +8,11 @@ jobs:
     name: deploy to IoT greengrass
     runs-on: ubuntu-latest
     steps:
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: arn:aws:iam::998235366130:role/service-role/Greengrass_ServiceRole          
+        aws-region: eu-west-1
     - uses: actions/checkout@master
       with:
         fetch-depth: 1
@@ -15,4 +20,3 @@ jobs:
       run: sudo python3 -m pip install -U git+https://github.com/aws-greengrass/aws-greengrass-gdk-cli.git@v1.1.0
     - name: Build GDK
       run: sudo gdk component build
-
