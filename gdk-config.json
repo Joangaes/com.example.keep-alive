@@ -8,7 +8,7 @@
         },
         "publish": {
           "region": "eu-west-1",
-          "bucket": "greengrass-component-artifacts"
+          "bucket": "greengrass-component-artifacts-eu-west-1-998235366130"
         }
       }
     },
