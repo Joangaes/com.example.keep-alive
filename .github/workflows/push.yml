@@ -25,3 +25,5 @@ jobs:
       run: sudo python3 -m pip install -U git+https://github.com/aws-greengrass/aws-greengrass-gdk-cli.git@v1.1.0
     - name: Build GDK
       run: sudo gdk component build
+    - name: Publish GDK
+      run: sudo gdk component publish
