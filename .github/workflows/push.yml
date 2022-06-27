@@ -1,0 +1,36 @@
+# Git Hub Actions new comment new role
+on:
+  push:
+    branches:
+      - push_iot
+name: deploy greengrass component
+jobs:
+  deploy:
+    name: deploy to IoT greengrass
+    runs-on: ubuntu-latest
+    steps:
+    - name: Aws configure
+      run: |
+        sudo aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} --profile default
+        sudo aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }} --profile default
+        sudo aws configure set region eu-west-1 --profile default
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-1
+        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+        role-duration-seconds: 1200
+        role-session-name: MySessionName
+    - uses: actions/checkout@master
+      with:
+        fetch-depth: 1
+    - name: Aws configure list
+      run: sudo aws configure list
+    - name: Install GDK
+      run: sudo python3 -m pip install -U git+https://github.com/aws-greengrass/aws-greengrass-gdk-cli.git@v1.1.0
+    - name: Build GDK
+      run: sudo gdk component build
+    - name: Publish GDK
+      run: sudo gdk component publish
