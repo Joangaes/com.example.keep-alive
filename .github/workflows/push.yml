@@ -11,21 +11,10 @@ jobs:
     steps:
     - name: Aws configure
       run: |
-        sudo aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} --profile default
-        sudo aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }} --profile default
-        sudo aws configure set region eu-west-1 --profile default
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: eu-west-1
-        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-        role-duration-seconds: 1200
-        role-session-name: MySessionName
-    - uses: actions/checkout@master
-      with:
-        fetch-depth: 1
+        export AWS_PROFILE=keep-alive
+        sudo aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} --profile keep-alive
+        sudo aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }} --profile keep-alive
+        sudo aws configure set region eu-west-1 --profile keep-alive
     - name: Aws configure list
       run: sudo aws configure list
     - name: Install GDK
