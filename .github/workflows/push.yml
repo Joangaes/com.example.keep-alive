@@ -2,7 +2,7 @@
 on:
   push:
     branches:
-      - push_iot
+      - master
 name: deploy greengrass component
 jobs:
   deploy:
