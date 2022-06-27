@@ -21,16 +21,15 @@ jobs:
     - uses: actions/checkout@master
       with:
         fetch-depth: 1
-    - name: Set AWS credentials
-      run:
-        aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws configure set default.region eu-west-1
     - name: Install GDK
       run: sudo python3 -m pip install -U git+https://github.com/aws-greengrass/aws-greengrass-gdk-cli.git@v1.1.0
-    - name: Aws figure list
-      run: sudo aws configure list
     - name: Build GDK
       run: sudo gdk component build
     - name: Publish GDK
       run: sudo gdk component publish
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    - name: Aws figure list
+      run: sudo aws configure list
+  
