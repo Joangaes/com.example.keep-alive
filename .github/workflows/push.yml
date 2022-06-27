@@ -18,7 +18,7 @@ jobs:
         role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         role-duration-seconds: 1200
         role-session-name: MySessionName
-    - uses: actions/checkout@master
+    - uses: actions/checkout@push_iot
       with:
         fetch-depth: 1
     - name: Install GDK
