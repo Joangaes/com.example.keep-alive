@@ -11,10 +11,10 @@ jobs:
     steps:
     - name: Aws configure
       run: |
-        export AWS_PROFILE=keep-alive
-        sudo aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} --profile keep-alive
-        sudo aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }} --profile keep-alive
-        sudo aws configure set region eu-west-1 --profile keep-alive
+        export AWS_PROFILE=default
+        sudo aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} --profile default
+        sudo aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }} --profile default
+        sudo aws configure set region eu-west-1 --profile default
     - name: Aws configure list
       run: sudo aws configure list
     - name: Install GDK
